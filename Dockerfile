@@ -1,10 +1,15 @@
 # base image
 FROM java:8
 
-# sbt
+# versions
 ENV SCALA_VERSION 2.11.7
 ENV SBT_VERSION 0.13.11
+ENV MAVEN_VERSION 3.3.9
+ENV ANT_VERSION 1.9.7
+ENV NODE_VERSION 4.4.5
+ENV GRADLE_VERSION 2.13
 
+# sbt
 ## Install scala
 RUN \
   curl -fsL http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
@@ -21,8 +26,6 @@ RUN \
   sbt sbtVersion
 
 # maven
-ENV MAVEN_VERSION 3.3.9
-
 RUN mkdir -p /usr/share/maven \
   && curl -fsSL http://apache.osuosl.org/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz \
     | tar -xzC /usr/share/maven --strip-components=1 \
@@ -31,8 +34,6 @@ RUN mkdir -p /usr/share/maven \
 ENV MAVEN_HOME /usr/share/maven
 
 # ant
-ENV ANT_VERSION 1.9.7
-
 RUN cd && wget -q http://www.eu.apache.org/dist//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
     tar xzf apache-ant-${ANT_VERSION}-bin.tar.gz && \
     mv apache-ant-${ANT_VERSION} /opt/ant && \
@@ -57,8 +58,6 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 4.4.5
-
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
   && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
@@ -67,8 +66,6 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # gradle
-ENV GRADLE_VERSION 2.13
-
 WORKDIR /usr/bin
 RUN curl -sLO https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip && \
   unzip gradle-${GRADLE_VERSION}-all.zip && \
