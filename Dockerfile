@@ -26,15 +26,15 @@ RUN \
   sbt sbtVersion
 
 ## bootstraping other sbt versions
-RUN sbt -sbt-version 0.13.5 sbtVersion
-RUN sbt -sbt-version 0.13.6 sbtVersion
-RUN sbt -sbt-version 0.13.7 sbtVersion
-RUN sbt -sbt-version 0.13.8 sbtVersion
-RUN sbt -sbt-version 0.13.9 sbtVersion
-RUN sbt -sbt-version 0.13.10 sbtVersion
-RUN sbt -sbt-version 0.13.11 sbtVersion
-RUN sbt -sbt-version 0.13.12 sbtVersion
-RUN sbt -sbt-version 0.13.13 sbtVersion
+RUN sbt -sbt-version 0.13.5 exit
+RUN sbt -sbt-version 0.13.6 exit
+RUN sbt -sbt-version 0.13.7 exit
+RUN sbt -sbt-version 0.13.8 exit
+RUN sbt -sbt-version 0.13.9 exit
+RUN sbt -sbt-version 0.13.10 exit
+RUN sbt -sbt-version 0.13.11 exit
+RUN sbt -sbt-version 0.13.12 exit
+RUN sbt -sbt-version 0.13.13 exit
 
 # maven
 RUN mkdir -p /usr/share/maven \
