@@ -3,7 +3,7 @@ FROM java:8
 
 # versions
 ENV SCALA_VERSION 2.11.7
-ENV SBT_VERSION 0.13.11
+ENV SBT_VERSION 0.13.13
 ENV MAVEN_VERSION 3.3.9
 ENV ANT_VERSION 1.9.7
 ENV NODE_VERSION 4.4.5
@@ -24,6 +24,17 @@ RUN \
   apt-get update && \
   apt-get install sbt && \
   sbt sbtVersion
+
+## bootstraping other sbt versions
+RUN sbt -sbt-version 0.13.5 sbtVersion
+RUN sbt -sbt-version 0.13.6 sbtVersion
+RUN sbt -sbt-version 0.13.7 sbtVersion
+RUN sbt -sbt-version 0.13.8 sbtVersion
+RUN sbt -sbt-version 0.13.9 sbtVersion
+RUN sbt -sbt-version 0.13.10 sbtVersion
+RUN sbt -sbt-version 0.13.11 sbtVersion
+RUN sbt -sbt-version 0.13.12 sbtVersion
+RUN sbt -sbt-version 0.13.13 sbtVersion
 
 # maven
 RUN mkdir -p /usr/share/maven \
