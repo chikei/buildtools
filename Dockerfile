@@ -26,8 +26,6 @@ RUN \
   sbt sbtVersion
 
 ## bootstraping other sbt versions
-RUN sbt -sbt-version 0.13.5 exit
-RUN sbt -sbt-version 0.13.6 exit
 RUN sbt -sbt-version 0.13.7 exit
 RUN sbt -sbt-version 0.13.8 exit
 RUN sbt -sbt-version 0.13.9 exit
