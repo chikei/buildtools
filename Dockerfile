@@ -71,7 +71,7 @@ ENV NVM_DIR /usr/local/nvm
 ## install
 # using bash so we can source nvm.sh...
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN apt-get install build-essential libssl-dev git && \
+RUN apt-get install -y -q --no-install-recommends build-essential libssl-dev git && \
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash && \
   source $NVM_DIR/nvm.sh && \
   nvm install 4.7.0 && \
