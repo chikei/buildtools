@@ -20,11 +20,6 @@ RUN \
   sbt sbtVersion
 
 ## bootstraping other sbt versions
-RUN sbt -sbt-version 0.13.7 exit
-RUN sbt -sbt-version 0.13.8 exit
-RUN sbt -sbt-version 0.13.9 exit
-RUN sbt -sbt-version 0.13.10 exit
-RUN sbt -sbt-version 0.13.11 exit
 RUN sbt -sbt-version 0.13.12 exit
 RUN sbt -sbt-version 0.13.13 exit
 
@@ -64,21 +59,13 @@ RUN curl -sLO https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}
 ENV GRADLE_HOME /usr/bin/gradle
 ENV PATH $PATH:$GRADLE_HOME/bin
 
-# nvm
-ENV NVM_VERSION 0.33.2
-ENV NVM_DIR /usr/local/nvm
+# node
+ENV NODE_VERSION 6.11.2
 
-## install
-# using bash so we can source nvm.sh...
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN apt-get install -y -q --no-install-recommends build-essential libssl-dev git && \
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash && \
-  source $NVM_DIR/nvm.sh && \
-  nvm install 4.8.4 && \
-  nvm install 6.9.2 && \
-  nvm install 6.11.2
-
-RUN source $NVM_DIR/nvm.sh && nvm use 6.11.2
+RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+  && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
+  && rm "node-v$NODE_VERSION-linux-x64.tar.xz" \
+  && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 ## yarn
 ENV YARN_VERSION 0.27.5
