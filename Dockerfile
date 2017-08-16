@@ -1,12 +1,12 @@
 # base image
-FROM java:8
+FROM openjdk:8
 
 # sbt
-ENV SCALA_VERSION 2.11.7
-ENV SBT_VERSION 0.13.13
+ENV SCALA_VERSION 2.12.3
+ENV SBT_VERSION 1.0.0
 ## Install scala
 RUN \
-  curl -fsL http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
+  curl -fsL http://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
   echo >> /root/.bashrc && \
   echo 'export PATH=~/scala-$SCALA_VERSION/bin:$PATH' >> /root/.bashrc
 
@@ -40,10 +40,10 @@ RUN mkdir -p /usr/share/maven \
 ENV MAVEN_HOME /usr/share/maven
 
 # ant
-ENV ANT_VERSION 1.9.7
+ENV ANT_VERSION 1.9.9
 
 ## install
-RUN cd && wget -q http://www.eu.apache.org/dist//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
+RUN cd && wget -q http://www.apache.org/dist//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
     tar xzf apache-ant-${ANT_VERSION}-bin.tar.gz && \
     mv apache-ant-${ANT_VERSION} /opt/ant && \
     rm -f apache-ant-${ANT_VERSION}-bin.tar.gz
@@ -65,7 +65,7 @@ ENV GRADLE_HOME /usr/bin/gradle
 ENV PATH $PATH:$GRADLE_HOME/bin
 
 # nvm
-ENV NVM_VERSION 0.32.1
+ENV NVM_VERSION 0.33.2
 ENV NVM_DIR /usr/local/nvm
 
 ## install
@@ -74,7 +74,19 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get install -y -q --no-install-recommends build-essential libssl-dev git && \
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v$NVM_VERSION/install.sh | bash && \
   source $NVM_DIR/nvm.sh && \
-  nvm install 4.7.0 && \
-  nvm install 6.9.2
+  nvm install 4.8.4 && \
+  nvm install 6.9.2 && \
+  nvm install 6.11.2
+
+RUN source $NVM_DIR/nvm.sh && nvm use 6.11.2
+
+## yarn
+ENV YARN_VERSION 0.27.5
+
+RUN curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && mkdir -p /opt/yarn \
+  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
+  && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
+  && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
 
 WORKDIR /root
