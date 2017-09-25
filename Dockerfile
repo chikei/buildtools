@@ -3,7 +3,7 @@ FROM openjdk:8
 
 # sbt
 ENV SCALA_VERSION 2.12.3
-ENV SBT_VERSION 1.0.0
+ENV SBT_VERSION 1.0.2
 ## Install scala
 RUN \
   curl -fsL http://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
@@ -22,6 +22,8 @@ RUN \
 ## bootstraping other sbt versions
 RUN sbt -sbt-version 0.13.12 exit
 RUN sbt -sbt-version 0.13.13 exit
+RUN sbt -sbt-version 0.13.16 exit
+RUN sbt -sbt-version 1.0.0 exit
 
 # maven
 ENV MAVEN_VERSION 3.3.9
