@@ -38,7 +38,7 @@ RUN mkdir -p /usr/share/maven \
 ENV MAVEN_HOME /usr/share/maven
 
 # ant
-ENV ANT_VERSION 1.9.9
+ENV ANT_VERSION 1.9.11
 
 ## install
 RUN cd && wget -q http://www.apache.org/dist//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
