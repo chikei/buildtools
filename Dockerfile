@@ -1,8 +1,8 @@
 # base image
-FROM openjdk:8
+FROM openjdk:10
 
 # sbt
-ENV SCALA_VERSION 2.12.4
+ENV SCALA_VERSION 2.12.6
 ENV SBT_VERSION 1.1.4
 ## Install scala
 RUN \
