@@ -2,8 +2,8 @@
 FROM openjdk:10
 
 # sbt
-ENV SCALA_VERSION 2.12.6
-ENV SBT_VERSION 1.1.6
+ENV SCALA_VERSION 2.12.8
+ENV SBT_VERSION 1.2.6
 ## Install scala
 RUN \
   curl -fsL http://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
@@ -20,12 +20,7 @@ RUN \
   sbt sbtVersion
 
 ## bootstraping other sbt versions
-RUN sbt -sbt-version 0.13.12 exit
-RUN sbt -sbt-version 0.13.13 exit
-RUN sbt -sbt-version 0.13.16 exit
-RUN sbt -sbt-version 1.0.0 exit
-RUN sbt -sbt-version 1.1.4 exit
-RUN sbt -sbt-version 1.1.6 exit
+RUN sbt -sbt-version 1.2.6 exit
 
 # maven
 ENV MAVEN_VERSION 3.3.9
@@ -39,7 +34,7 @@ RUN mkdir -p /usr/share/maven \
 ENV MAVEN_HOME /usr/share/maven
 
 # ant
-ENV ANT_VERSION 1.9.12
+ENV ANT_VERSION 1.9.14
 
 ## install
 RUN cd && wget -q http://www.apache.org/dist//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
