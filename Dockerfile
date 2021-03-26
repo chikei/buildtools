@@ -3,7 +3,7 @@ FROM openjdk:10
 
 # sbt
 ENV SCALA_VERSION 2.12.8
-ENV SBT_VERSION 1.2.6
+ENV SBT_VERSION 1.4.9
 ## Install scala
 RUN \
   curl -fsL http://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
