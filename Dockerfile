@@ -17,10 +17,10 @@ RUN \
   rm sbt-$SBT_VERSION.deb && \
   apt-get update && \
   apt-get install sbt && \
-  sbt sbtVersion
+  sbt -Dsbt.rootdir=true sbtVersion
 
 ## bootstraping other sbt versions
-RUN sbt -sbt-version 1.2.6 exit
+RUN sbt -Dsbt.rootdir=true -sbt-version 1.2.6 exit
 
 # maven
 ENV MAVEN_VERSION 3.3.9
@@ -34,7 +34,7 @@ RUN mkdir -p /usr/share/maven \
 ENV MAVEN_HOME /usr/share/maven
 
 # ant
-ENV ANT_VERSION 1.9.14
+ENV ANT_VERSION 1.9.15
 
 ## install
 RUN cd && wget -q http://www.apache.org/dist//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
